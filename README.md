@@ -16,6 +16,9 @@ To test the installation, you can connect your board via USB-UART, then enter Th
 Useful Links:
 
 Incredibly useful micropython docs: https://docs.micropython.org/en/latest/esp32/quickref.html
+
 Design guidelines for custom PCBs with ESP32: https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/index.html
+
 Custom PCB design review by ESP32 company creator: https://www.espressif.com/en/contact-us/circuit-schematic-pcb-design-review
+
 ESP32 troubleshooting: https://docs.espressif.com/projects/esptool/en/latest/esp32/troubleshooting.html
