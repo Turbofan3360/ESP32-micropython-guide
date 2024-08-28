@@ -12,7 +12,7 @@ After struggling to install esptool via github (https://github.com/espressif/esp
 
 This then allowed me to flash micropython firmware via the Thonny IDE to the board. To do this, enter Thonny and go to Tools > Options > Interpreter (if you have esptool downloaded as well, you will need to select the three lines next to the install button > Select local MicroPython Image to choose your downloaded firmware). Download the latest micropython firmware here and then flash it to the board. I also installed the Thonny ESP32 plugin for future use.
 
-NOTE: If you want SPIRAM/PSRAM support, scroll further down on the download page to find firmwares that support it
+NOTE: If you want OCTAL SPIRAM/PSRAM support, scroll further down on the download page to find firmwares that support it
 
 To test the installation, you can connect your board via USB-UART, then enter Thonny Options > Interpreter (as seen above in the image with installation of micropython). Select the port, and hit “OK” to connect your board. You should be able to see in the shell that it is connected - type “help()” to confirm this and get an output from your ESP32.
 
