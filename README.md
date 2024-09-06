@@ -8,8 +8,10 @@ I realised this was due to my USB cable being plugged into the USB-OTG port rath
 
 I then encountered issues when trying to flash firmware to the chip - the stub flashers (.JSON files) for the “esptool” package installed via apt repositories were incomplete, not containing the required stub flashers for an ESP-32-S3 model.
 
-After struggling to install esptool via github (https://github.com/espressif/esptool), which contained the required stub flashers, due to install scripts being faulty, I used pip3 to install it - forcing pip to install (despite it wanting me to use apt as is standard in newer Ubuntu versions) via: pip3 install esptool --break-system-packages
-
+After struggling to install esptool via github (https://github.com/espressif/esptool), which contained the required stub flashers, due to install scripts being faulty, I used pip3 to install it - forcing pip to install (despite it wanting me to use apt as is standard in newer Ubuntu versions) via: 
+```
+pip3 install esptool --break-system-packages
+```
 This then allowed me to flash micropython firmware via the Thonny IDE to the board. To do this, enter Thonny and go to Tools > Options > Interpreter (if you have esptool downloaded as well, you will need to select the three lines next to the install button > Select local MicroPython Image to choose your downloaded firmware). Download the latest micropython firmware at https://micropython.org/download/?port=esp32 and then flash it to the board. I also installed the Thonny ESP32 plugin for future use.
 
 NOTE: If you want OCTAL SPIRAM/PSRAM support, scroll further down on the download page to find firmwares that support it
