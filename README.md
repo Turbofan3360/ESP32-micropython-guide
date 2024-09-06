@@ -1,6 +1,6 @@
-# ESP32-micropython-setup-guide
+# ESP32 micropython setup:
 
-Flashing Micropython firmware to chip:
+**PLEASE NOTE - I USE LINUX UBUNTU OS. THERE MAY BE DIFFERENCES FOR OTHER OPERATING SYSTEMS**
 
 After looking around, I found many old/deprecated IDEs people have used. Eventually, I found that the Thonny IDE is the best option. After trying to flash firmware to the chip, I encountered “Errno 13”, which I found a solution to here: https://github.com/thonny/thonny/issues/2360. I then continued, but came across another issue - error message: A fatal error occurred: Failed to connect to Espressif device: No serial data received. For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html Erase command returned with error code 2
 
