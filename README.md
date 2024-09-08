@@ -43,9 +43,9 @@ angles = [0, 90, 0, -90]
 while True:
 	print("Moving...")
 	for i in angles:
-    	cycle = find_duty_cycle(i)
-    	servo.duty(cycle)
-    	time.sleep(1)
+    		cycle = find_duty_cycle(i)
+    		servo.duty(cycle)
+    		time.sleep(1)
 ```
 
 I struggled at the start as my servo wasn’t moving at all. However, upon coming across a wiring diagram online, I tried connecting my servo’s ground to the ESP-32’s ground pin. This solved the problem! I now know the issue was that for a protocol such as PWM, where the voltages of the output pin are key, you need a common ground between the servo and controller to measure those voltages from.
