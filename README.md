@@ -50,7 +50,7 @@ while True:
 
 I struggled at the start as my servo wasn’t moving at all. However, upon coming across a wiring diagram online, I tried connecting my servo’s ground to the ESP-32’s ground pin. This solved the problem! I now know the issue was that for a protocol such as PWM, where the voltages of the output pin are key, you need a common ground between the servo and controller to measure those voltages from.
 
-PLEASE NOTE: The function find_duty_cycle() in the above code is the result of what I found on this website: https://www.upesy.com/blogs/tutorials/esp32-servo-motor-sg90-on-micropython I used that code as a guideline to build my own function to find a duty cycle value to output. This find_duty_cycle() function is highly simplified, containing multiple steps in one line. It is applicable to my SG90 servo with a 180o travel range (from +90o to -90o). It may need to be altered to suit other servos.
+PLEASE NOTE: The function find_duty_cycle() in the above code is the result of what I found on this website: https://www.upesy.com/blogs/tutorials/esp32-servo-motor-sg90-on-micropython I used that code as a guideline to build my own function to find a duty cycle value to output. This find_duty_cycle() function is highly simplified, containing multiple steps in one line. It is applicable to my SG90 servo with a 180° travel range (from +90° to -90°). It may need to be altered to suit other servos.
 
 # Useful Links:
 
