@@ -99,7 +99,6 @@ while True:
     	chars = uart.read(n)
     	print("[{}] - {}".format(n,
                              	chars))
-
 ```
 
 My next job now is to write code that can make sense of the data I’m getting - a job for which the module uasyncio (which I discovered earlier) will be extremely useful!
