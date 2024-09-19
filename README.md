@@ -105,7 +105,7 @@ while True:
 
 My next job now is to write code that can make sense of the data I’m getting - a job for which the module uasyncio (which I discovered earlier) will be extremely useful!
 
-Firstly, I had to get my code to sync up with the data stream. I did this by looking for the start and stop bytes - b’\x00\x0f’ and then reading 23 bytes (not reading start/stop bytes). After many attempts with varying degrees of success, I finally landed on a relatively simple solution that works fairly reliably. See the code to do this in the file sync_to_sbus_stream.py above.
+Firstly, I had to get my code to sync up with the data stream. I did this by looking for the start and stop bytes - b’\x00\x0f’ and then reading 23 bytes (not reading start/stop bytes). After many attempts with varying degrees of success, I finally landed on a relatively simple solution that works reliably. See the code to do this in the file sync_to_sbus_stream.py above.
 
 
 # Useful Links:
