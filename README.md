@@ -68,7 +68,9 @@ Here, I am using UART 1 - here’s a full table of UARTS and their TX/RX pins:
 
 
 UART 0: TX 1, RX 3
+
 UART 1: TX 10, RX 9
+
 UART 2: TX 17, RX 16
 
 After doing this and reading off the UART using uart.read() , I found I was reading (almost) exclusively nulls (0x00). After talking with other people, it appears I had misunderstood how buffers work when communicating via UARTs.
