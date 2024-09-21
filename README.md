@@ -107,6 +107,8 @@ My next job now is to write code that can make sense of the data I’m getting -
 
 Firstly, I had to get my code to sync up with the data stream. I did this by looking for the start and stop bytes - b’\x00\x0f’ and then reading 23 bytes (not reading start/stop bytes). After many attempts with varying degrees of success, I finally landed on a relatively simple solution that works reliably. See the code to do this in the file sync_to_sbus_stream.py above.
 
+I then used code from this github repository (https://github.com/Sokrates80/sbus_driver_micropython/tree/master), slightly adjusted to fit into my code, to decode the data, converting the bytes into 11 bits per channel. I also implemented code to detect duplicate frames and avoided doing all the processing on them - a small improvement that may help me in future if I’m doing other heavy processing in the future. I did have to include a couple of time.sleep_ms() in my code to prevent the code from spinning around forever and breaking - I will be working and testing to try and get rid of these, along with the “if self.sbus.any() < 23” statement in the read_data() method.
+
 
 # Useful Links:
 
