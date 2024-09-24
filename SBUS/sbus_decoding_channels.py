@@ -11,7 +11,6 @@ class SbusReceive:
         
         self.previousData = bytearray()
         self.dataDuplicated = False
-        self.channels = 16*[0]
             
     def read_data(self):
         timeout_flag = 0
@@ -62,7 +61,6 @@ class SbusReceive:
                 bit_in_channel = 0
                 ch += 1
             
-        self.channels = channels
         return channels
 
 class ChannelValues:
