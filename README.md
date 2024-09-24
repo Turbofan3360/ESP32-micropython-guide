@@ -1,6 +1,7 @@
 # ESP32 micropython setup:
 
 **PLEASE NOTE - I USE LINUX UBUNTU OS. THERE MAY BE DIFFERENCES FOR OTHER OPERATING SYSTEMS**
+**Scroll down to find info on SBUS implementation and SG90 servo control**
 
 After looking around, I found many old/deprecated IDEs people have used. Eventually, I found that the Thonny IDE is the best option. After trying to flash firmware to the chip, I encountered “Errno 13”, which I found a solution to here: https://github.com/thonny/thonny/issues/2360. I then continued, but came across another issue - error message: A fatal error occurred: Failed to connect to Espressif device: No serial data received. For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html Erase command returned with error code 2
 
@@ -108,6 +109,10 @@ My next job now is to write code that can make sense of the data I’m getting.
 Firstly, I had to get my code to sync up with the data stream. I did this by looking for the start and stop bytes - b’\x00\x0f’ and then reading 23 bytes (not reading start/stop bytes). After many attempts with varying degrees of success, I finally landed on a relatively simple solution that works reliably. See the code to do this in the file sync_to_sbus_stream.py above.
 
 I then used code from this github repository (https://github.com/Sokrates80/sbus_driver_micropython/tree/master), slightly adjusted to fit into my code, to decode the data, converting the bytes into 11 bits per channel. I also implemented code to detect duplicate frames and avoided doing all the processing on them - a small improvement that may help me in future if I’m doing other heavy processing in the future. Due to a couple of issues and parts that weren't very efficient, I reworked my code in the read_data() method - ironically, there was an “if” statement that was supposed to be a “while”, but accidentally got changed - and for some reason, worked better than the “while” loop, which kept breaking! After much testing and debugging, though, I worked through all the issues and have a much better piece of code now. There is still, however, 1 5ms wait in the code, which I can't seem to get rid of as the code breaks without it. I've minimized the wait time as far as possible, but any help here would be appreciated!
+
+I then implemented the class ChannelValues, which provides various methods to return servo angles (aileron/elavator/rudder) and percentages (for throttle/switches/aux channels) in different combinations. This has been customized to fit my T8FB/R8EF transmitter/receiver, and may need to be altered to suit other transmitters/receivers.
+
+**Please note I haven't implemented the 17th/18th channels in my SBUS code, as I do not have a transmitter with that number of channels. They are digital channels, and so need to be decoded differently to the others.**
 
 
 # Useful Links:
