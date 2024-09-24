@@ -65,6 +65,40 @@ class SbusReceive:
         self.channels = channels
         return channels[:8]
 
+class ChannelValues:
+    def __init__(self):
+        self.channels_angles = [0, 1, 3]
+        self.channels_percent = [2, 4, 5, 6, 7]
+    
+    def get_control_values(self, channel_values):
+        aileron_degrees = round((channel_values[0]-1000)*(9/80), 2)
+        elavator_degrees = round((channel_values[1]-1000)*(9/80), 2)
+        rudder_degrees = round((channel_values[3]-1000)*(9/80), 2)
+        
+        throttle_% = round((channel_values[2]-200)/16, 2)
+        return aileron_degrees, elavator_degrees, rudder_degrees, throttle_%
+    
+    def get_switch_values(self, channel_values):
+        ch5 = (channel_values[4]-200)/16
+        ch7 = (channel_values[6] -200)/16
+        return ch5, ch7
+    
+    def get_aux_values(self, channel_values):
+        aux1 = round((channel_values[5]-200)/16, 2)
+        aux2 = round((channel_values[7]-200)/16, 2)
+        return aux1, aux2
+    
+    def get_values(self, channel_values):
+        channels = 8*[0]
+        
+        for i in self.channels_angles:
+            channels[i] = round((channel_values[i]-1000)*(9/80), 2)
+        
+        for i in self.channels_percent:
+            channels[i] = round((channel_values[i]-200)/16, 2)
+        
+        return channels
+
 
 sbus = SbusReceive(1)
 
