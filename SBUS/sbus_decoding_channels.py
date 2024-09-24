@@ -99,6 +99,7 @@ class ChannelValues:
 
 
 sbus = SbusReceive(1)
+channelvalues = ChannelValues()
 
 while True:
     data = sbus.read_data()
@@ -106,6 +107,7 @@ while True:
     if data:
         channels = sbus.extract_channel_data()
         if channels:
-            print(channels)
+            servo_throttle_angles = channelvalues.get_values(channels)
+            print(servo_throttle_angles)
     else:
         time.sleep_ms(5)
