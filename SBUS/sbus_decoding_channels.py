@@ -66,7 +66,7 @@ class SbusReceive:
 class ChannelValues:
     def __init__(self):
         self.channels_angles = [0, 1, 3]
-        self.channels_percent = [2, 4, 5, 6, 7]
+        self.channels_percentages = [2, 4, 5, 6, 7]
     
     def get_control_values(self, channel_values):
         aileron_degrees = round((channel_values[0]-1000)*(9/80), 2)
@@ -92,7 +92,7 @@ class ChannelValues:
         for i in self.channels_angles:
             channels[i] = round((channel_values[i]-1000)*(9/80), 2)
         
-        for i in self.channels_percent:
+        for i in self.channels_percentages:
             channels[i] = round((channel_values[i]-200)/16, 2)
         
         return channels
