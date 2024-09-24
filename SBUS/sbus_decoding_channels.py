@@ -63,7 +63,7 @@ class SbusReceive:
                 ch += 1
             
         self.channels = channels
-        return channels[:8]
+        return channels
 
 class ChannelValues:
     def __init__(self):
