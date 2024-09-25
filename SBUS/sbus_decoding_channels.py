@@ -69,9 +69,9 @@ class ChannelValues:
         self.channels_percentages = [2, 4, 5, 6, 7]
     
     def get_control_values(self, channel_values):
-        aileron_degrees = round((channel_values[0]-1000)*(9/80), 2)
-        elavator_degrees = round((channel_values[1]-1000)*(9/80), 2)
-        rudder_degrees = round((channel_values[3]-1000)*(9/80), 2)
+        aileron_degrees = round((channel_values[0]-1000)*(9/160), 2)
+        elavator_degrees = round((channel_values[1]-1000)*(9/160), 2)
+        rudder_degrees = round((channel_values[3]-1000)*(9/160), 2)
         
         throttle_percent = round((channel_values[2]-200)/16, 2)
         return aileron_degrees, elavator_degrees, rudder_degrees, throttle_percent
@@ -90,7 +90,7 @@ class ChannelValues:
         channels = 8*[0]
         
         for i in self.channels_angles:
-            channels[i] = round((channel_values[i]-1000)*(9/80), 2)
+            channels[i] = round((channel_values[i]-1000)*(9/160), 2)
         
         for i in self.channels_percentages:
             channels[i] = round((channel_values[i]-200)/16, 2)
