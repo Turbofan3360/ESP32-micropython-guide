@@ -61,7 +61,7 @@ class SbusReceive:
                 bit_in_channel = 0
                 ch += 1
             
-        return channels
+        return channels[:8]
 
 class ChannelValues:
     def __init__(self):
@@ -73,8 +73,8 @@ class ChannelValues:
         elavator_degrees = round((channel_values[1]-1000)*(9/80), 2)
         rudder_degrees = round((channel_values[3]-1000)*(9/80), 2)
         
-        throttle_% = round((channel_values[2]-200)/16, 2)
-        return aileron_degrees, elavator_degrees, rudder_degrees, throttle_%
+        throttle_percent = round((channel_values[2]-200)/16, 2)
+        return aileron_degrees, elavator_degrees, rudder_degrees, throttle_percent
     
     def get_switch_values(self, channel_values):
         ch5 = (channel_values[4]-200)/16
