@@ -65,7 +65,7 @@ class SbusReceive:
                 bit_in_channel = 0
                 ch += 1
             
-        return channels[:8]
+        return channels
 
 class ChannelValues:
     def __init__(self):
