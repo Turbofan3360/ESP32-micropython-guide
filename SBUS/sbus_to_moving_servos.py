@@ -4,41 +4,49 @@ import time
 aileron_pin = 45
 elavator_pin = 13
 rudder_pin = 14
+sbus_pin = 3
 
 class SbusReceive:
-    
-    TIMEOUT_PERIODS = 26
-    
     def __init__(self, pin):
         self.sbus = UART(1, 100000, rx=pin)
         self.sbus.init(100000, bits=8, parity=0, stop=2, invert=self.sbus.INV_RX)
         
         self.previousData = bytearray()
         self.dataDuplicated = False
-            
-    def read_data(self):
+        self.TIMEOUT_PERIODS = 26
+        
+    def get_sync(self):
         timeout_flag = 0
         
-        while timeout_flag < SbusReceive.TIMEOUT_PERIODS:
+        while timeout_flag < self.TIMEOUT_PERIODS:
             timeout_flag += 1
             testbytes = self.sbus.read(2)
             
             if testbytes == b'\x00\x0f':
-                self.data = bytearray()
+                return True
+        return False
+            
+    def read_data(self):
+            self.data = bytearray()
+            testbytes = self.sbus.read(2)
+            
+            if testbytes != b'\x00\x0f':
+                timeout = self.get_sync()
+                if not timeout:
+                    return None
+            
+            while len(self.data) < 23:
+                nextbytes = self.sbus.read(23 - len(self.data))
+                if nextbytes:
+                    self.data += nextbytes
                 
-                while len(self.data) < 23:
-                    nextbytes = self.sbus.read(23 - len(self.data))
-                    if nextbytes:
-                        self.data += nextbytes
+            if self.data == self.previousData:
+                self.dataDuplicated = True
+            else:
+                self.dataDuplicated = False
+                self.previousData = self.data
                 
-                if self.data == self.previousData:
-                    self.dataDuplicated = True
-                else:
-                    self.dataDuplicated = False
-                    self.previousData = self.data
-                
-                return self.data
-        return None
+            return self.data
 
     def extract_channel_data(self):
         if self.dataDuplicated:
@@ -108,7 +116,7 @@ class ChannelValues:
         return channels
 
 
-sbus = SbusReceive(3)
+sbus = SbusReceive(sbus_pin)
 channelvalues = ChannelValues()
 
 aileron = PWM(Pin(aileron_pin), freq=50, duty_ns=1500)
@@ -122,9 +130,13 @@ while True:
         channels = sbus.extract_channel_data()
         if channels:
             servo_throttle_angles = channelvalues.get_duty_cycles(channels)
+            
             aileron.duty(servo_throttle_angles[0])
             elavator.duty(servo_throttle_angles[1])
             rudder.duty(servo_throttle_angles[3])
+             
+    else:
+        time.sleep_ms(5)
              
     else:
         time.sleep_ms(5)
