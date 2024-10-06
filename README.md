@@ -1,7 +1,7 @@
-# ESP32 micropython setup:
-
 **PLEASE NOTE - I USE LINUX UBUNTU OS. THERE MAY BE DIFFERENCES FOR OTHER OPERATING SYSTEMS**
 **Scroll down to find info on SBUS implementation and SG90 servo control**
+
+# ESP32 micropython setup:
 
 After looking around, I found many old/deprecated IDEs people have used. Eventually, I found that the Thonny IDE is the best option. After trying to flash firmware to the chip, I encountered “Errno 13”, which I found a solution to here: https://github.com/thonny/thonny/issues/2360. I then continued, but came across another issue - error message: A fatal error occurred: Failed to connect to Espressif device: No serial data received. For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html Erase command returned with error code 2
 
@@ -114,8 +114,7 @@ I then implemented the class ChannelValues, which provides various methods to re
 
 **Please note I haven't implemented the 17th/18th channels in my SBUS code, as I do not have a transmitter with that number of channels. They are digital channels, and so need to be decoded differently to the others.**
 
-I then integrated code from my previous work with servos on the ESP32, which means that I can now move the control sticks on my R/C transmitter and get the servos on my R/C Plane to move! While this is cool, there is a bit of control lag, and the servo movements are a bit jittery. As a result, my aim now is to re-work my code to use the Micropython uasyncio module, enabling coroutines, which should speed up my code.
-
+I then integrated code from my previous work with servos on the ESP32, which means that I can now move the control sticks on my R/C transmitter and get the servos on my R/C Plane to move! While this is cool, there is a bit of control lag, and the servo movements are a bit jittery. As a result, I re-worked my code such that it only goes to sync to the SBUS stream when it isn’t synced up (I did this by breaking out the syncing code into a separate function), which seems to have sped up the code quite a bit - although I’m not sure quite how well it’s worked! I will be doing more testing on this.
 
 # Useful Links:
 
