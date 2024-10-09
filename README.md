@@ -1,5 +1,5 @@
 **PLEASE NOTE - I USE LINUX UBUNTU OS. THERE MAY BE DIFFERENCES FOR OTHER OPERATING SYSTEMS**
-**Scroll down to find info on SBUS implementation and SG90 servo control**
+**Scroll down to find info on SBUS implementation, SG90 servo control and NEO-M8 GPS**
 
 # ESP32 micropython setup:
 
@@ -115,6 +115,12 @@ I then implemented the class ChannelValues, which provides various methods to re
 **Please note I haven't implemented the 17th/18th channels in my SBUS code, as I do not have a transmitter with that number of channels. They are digital channels, and so need to be decoded differently to the others.**
 
 I then integrated code from my previous work with servos on the ESP32, which means that I can now move the control sticks on my R/C transmitter and get the servos on my R/C Plane to move! While this is cool, there is a bit of control lag, and the servo movements are a bit jittery. As a result, I re-worked my code such that it only goes to sync to the SBUS stream when it isn’t synced up (I did this by breaking out the syncing code into a separate function), which seems to have sped up the code quite a bit - although I’m not sure quite how well it’s worked! I will be doing more testing on this.
+
+# NEO-M8 GPS:
+
+After receiving my GPS modules, I first did some research on their communication protocols and how to read/send data. The main datasheet for this module (https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf) didn’t have a lot of info on this, but I found another receiver description and protocol specification sheet which had all the detail I wanted (https://content.u-blox.com/sites/default/files/products/documents/u-blox8-M8_ReceiverDescrProtSpec_UBX-13003221.pdf). I then started writing code to read data off the ESP32 UART. I had many iterations of this code, trying to get it to be as fast and efficient as possible. Eventually, I ended up with the code in /NEO-M8-GPS/reading_gps_data.py
+
+Currently, this code simply reads data off the UART (only a set number of NMEA sentences, 6 in this case, as that is the number sent by the NEO-M8), ensures it has all the data before decoding it and adding it to a dictionary. There is an occasional bug with the decoding that I can’t figure out (it only says UnicodeError: ), which is why that section of code is in a try/except. My next task is to implement code to process the NMEA sentences to get the data needed in the required formats.
 
 # Useful Links:
 
