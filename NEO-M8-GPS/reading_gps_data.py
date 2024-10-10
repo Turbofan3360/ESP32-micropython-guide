@@ -26,12 +26,15 @@ class GPSReceive:
                     new_data = new_data.decode('utf-8')
                     self.data[new_data[3:6]] = new_data
                     num_sentences_read += 1
-                except:
-                    return "DECODING ERROR"
+                except UnicodeError:
+                    raise StreamDecodingError:
         
         return self.data
 
 gps = GPSReceive(10, 9)
 while True:
-    print(gps.get_data())
+    try:
+        print(gps.get_data())
+    except:
+        print(gps.get_data())
     time.sleep(1)
