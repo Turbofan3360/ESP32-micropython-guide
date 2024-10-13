@@ -131,12 +131,15 @@ GLL: lat,NS,lon,EW,time,status,posMode
 GSA: error in satellite positions
 
 RMC: time,status,lat,NS,lon,EW,spd,cog,date,mv,mvEW,posMode,navStatus
+
 mv = magnetic variation, cog = course over ground, spd = speed
 
 VTG: cogt,cogtUnit,cogm,cogmUnit,sogn,sognUnit,sogk,sogkUnit,posMode
+
 cogt/m = course over gound true/magnetic, first sign is in knots and second in km/h
 
 GGA: time,lat,NS,lon,EW,quality,numSV,HDOP,alt,altUnit,sep,sepUnit,diffAge,diffStation
+
 numsv = num satellites, HDOP = measurement of error in height, altUnit/sepUnit always meters, sep = geoid separation, diffAge/diffStation used with differential GPS
 
 Lat/Lon: first two digits before decimal point and everything after is minutes, other digits beforehand are degrees
