@@ -125,6 +125,7 @@ Currently, this code simply reads data off the UART (only a set number of NMEA s
 It was easy enough to code the string manipulation in order to pull out the data from each NMEA sentence. However, I was getting KeyErrors from my dictionary, UnicodeErrors and errors with the checksum (I wrote a method to check the checksum). As a result, it was quite variable in the time it would take to get fix data and it occasionally missed the first couple of bytes of data, among a couple of errors. As a result, I then rewrote my code such that it always reads 1 byte at a time, and starts appending the bytes to a variable once it finds the “$” sign at the start of the NMEA sentence, and then reads until the new line character “\n”. This turns out to be a far more consistent and reliable method for reading data, so much more effective method! This also turns up far fewer errors - although I’ve left in all the error catching code to ensure reliability.
 
 **NMEA SENTENCE TYPES:**
+
 GSV: positions of satellites in view
 GLL: lat,NS,lon,EW,time,status,posMode
 GSA: error in satellite positions
